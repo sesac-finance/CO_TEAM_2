@@ -18,9 +18,11 @@
   height: 32;
   color: #282c34;
 }
+
+
 .loginbut{
   text-decoration: none;
-  color: blue;
+  color: rgb(0, 132, 255);
 }
 .signupbut{
   text-decoration: none;
