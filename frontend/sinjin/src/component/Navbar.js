@@ -8,8 +8,8 @@ export default function Navbar(){
               <li><a href="/" className="nav-link px-2 link-dark">Home</a></li>
               <li><a href="service" className="nav-link px-2 link-dark">Service</a></li>
               <li><a href="mypg" className="nav-link px-2 link-dark">My Page</a></li>
-              <li><a href="faqs" className="nav-link px-2 link-dark">FAQs</a></li>
-              <li><a href="about" className="nav-link px-2 link-dark">About</a></li>
+              <li><a href="model/ml" className="nav-link px-2 link-dark">ML model</a></li>
+              <li><a href="model/dl" className="nav-link px-2 link-dark">DL model</a></li>
             </ul>
       
             <div className="col-md-3 text-end">
