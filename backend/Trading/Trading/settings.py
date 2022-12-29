@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-c=sq_$t4s105-id1xv*saawb7-dk$qd-ji(vp2j=3$et7&bzgj
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'allauth',
     'allauth.account',
+    'corsheaders',
     #knox 사용
     'knox',
 ]
@@ -59,6 +60,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'Trading.urls'
@@ -157,3 +159,5 @@ REST_FRAMEWORK = {
 # }
 
 SITE_ID = 1
+
+CORS_ORIGIN_ALLOW_ALL=True
