@@ -15,23 +15,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-from rest_framework_jwt.views import obtain_jwt_token, verify_jwt_token, refresh_jwt_token
-from . import views
+# from rest_framework_jwt.views import obtain_jwt_token, verify_jwt_token, refresh_jwt_token
+# from . import views
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
+    path('admin/', admin.site.urls),
     path('api/', include('api.urls')),
-#로그인 구현 api
-    path('validate/', views.validate_jwt_token),
-    path('login/', obtain_jwt_token),
-    
-    path('verify/', verify_jwt_token),
-    path('refresh/', refresh_jwt_token),
-    
-    path('user/', include('accounts.urls')),
-]
+    path('accounts/', include('accounts.urls')),
+
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+
 
 
 

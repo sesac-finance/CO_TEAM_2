@@ -1,15 +1,16 @@
 from django.urls import path
 from . import views
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
 
 app_name = "accounts"
 
 urlpatterns = [
-
-    path('', views.UserList.as_view()),
-    path('current/',  views.current_user),
-
+    path('signup/', views.signup), #회원가입
+    path('bank/', views.get_bank),
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'), #로그인- 토큰발행
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'), #토큰 재 발행
 ]
 
-    # path('login/', views.login_view, name="login"),  # 로그인
-    # path('logout', views.logout_view, name="logout"),  # 로그아웃
-    # path('signup', views.signup_view, name="signup"),  # 회원가입   

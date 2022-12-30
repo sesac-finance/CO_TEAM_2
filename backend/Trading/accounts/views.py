@@ -1,36 +1,67 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login, logout
-from .models import User
-from django.http import HttpResponseRedirect
-from django.contrib.auth.models import User
 from rest_framework import permissions, status, generics
-from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .serializers import UserSerializer, UserSerializerWithToken
+from .serializers import UserSerializer
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import AllowAny
+from .serializers import UserSerializer
+from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.decorators import authentication_classes, permission_classes
+
+#회원가입시 비밀번호 두번 입력해서 확인
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def signup(request):
+    password = request.data.get('password')
+    print(request.data)
+    password_confirmation = request.data.get('passwordConfirmation')
+    # print(password_confirmation)
+
+    if password != password_confirmation:
+        return Response({'error': '비밀번호가 일치하지 않습니다!'}, status=status.HTTP_400_BAD_REQUEST)
+
+    serializer = UserSerializer(data=request.data)
+
+    if serializer.is_valid(raise_exception=True):
+        user = serializer.save()
+        user.set_password(password)
+        user.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
-# from google.oauth2 import id_token
-# from google.auth.transport import requests
 
 
 @api_view(['GET'])
-def current_user(request):
+@authentication_classes([JWTAuthentication])
+@permission_classes([IsAuthenticated])
+def get_bank(request):
+    context = {
+        'bank': request.user.bank,
+        'id': request.user.pk
+    }
+    return Response(context, status=status.HTTP_200_OK)
 
-    serializer = UserSerializer(request.user)
-    return Response(serializer.data)
 
 
-class UserList(APIView):
 
-    permission_classes = (permissions.AllowAny,)
+# @api_view(['GET'])
+# def current_user(request):
 
-    def post(self, request, format=None):
-        serializer = UserSerializerWithToken(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+#     serializer = UserSerializer(request.user)
+#     return Response(serializer.data)
+
+
+# class UserList(APIView):
+
+#     permission_classes = (permissions.AllowAny,)
+
+#     def post(self, request, format=None):
+#         serializer = UserSerializerWithToken(data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data, status=status.HTTP_201_CREATED)
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 
