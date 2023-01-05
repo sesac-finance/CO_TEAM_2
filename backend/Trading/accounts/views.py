@@ -10,7 +10,7 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.decorators import authentication_classes, permission_classes
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-import requests
+
 
 
 #회원가입시 비밀번호 두번 입력해서 확인
