@@ -8,6 +8,10 @@ from .serializers import UserSerializer
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.decorators import authentication_classes, permission_classes
+from django.shortcuts import render, redirect
+from django.http import HttpResponse
+import requests
+
 
 #회원가입시 비밀번호 두번 입력해서 확인
 @api_view(['POST'])
@@ -35,12 +39,26 @@ def signup(request):
 @api_view(['GET'])
 @authentication_classes([JWTAuthentication])
 @permission_classes([IsAuthenticated])
-def get_bank(request):
+def get_user(request):
     context = {
-        'bank': request.user.bank,
+        'name': request.user.name,
         'id': request.user.pk
     }
     return Response(context, status=status.HTTP_200_OK)
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
 
 
 
