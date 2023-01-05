@@ -34,6 +34,8 @@ class AccountsUser(models.Model):
     is_staff = models.IntegerField()
     is_active = models.IntegerField()
     date_joined = models.DateTimeField()
+    bank = models.CharField(max_length=32, blank=True, null=True)
+    name = models.CharField(max_length=32, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -116,7 +118,7 @@ class CapAct(models.Model):
 
 
 class CompanyInfo(models.Model):
-    code = models.IntegerField(primary_key=True)
+    code = models.CharField(primary_key=True, max_length=100)
     company = models.CharField(max_length=100)
     last_update = models.DateTimeField()
 
@@ -238,7 +240,7 @@ class ModSign(models.Model):
     mod = models.ForeignKey(ModInfo, models.DO_NOTHING)
     ord_sig = models.IntegerField()
     ord_sig_dt = models.DateTimeField()
-    iem_cd = models.IntegerField()
+    iem_cd = models.CharField(max_length=100)
 
     class Meta:
         managed = False
@@ -259,7 +261,7 @@ class ModTrs(models.Model):
 
 
 class RtDiv(models.Model):
-    usr = models.ForeignKey('UsrInfo', models.DO_NOTHING)
+    usr = models.ForeignKey(AccountsUser, models.DO_NOTHING)
     mod = models.ForeignKey(ModInfo, models.DO_NOTHING)
     usr_rtr = models.FloatField()
     ren_dt = models.DateTimeField()
@@ -270,7 +272,7 @@ class RtDiv(models.Model):
 
 
 class TrsCheck(models.Model):
-    usr = models.ForeignKey('UsrInfo', models.DO_NOTHING)
+    usr = models.ForeignKey(AccountsUser, models.DO_NOTHING)
     btn_clk_cd = models.IntegerField()
     btn_clk_dt = models.DateTimeField()
     usr_ord_cd = models.IntegerField()
@@ -281,20 +283,8 @@ class TrsCheck(models.Model):
         db_table = 'trs_check'
 
 
-class UsrInfo(models.Model):
-    pas_wd = models.CharField(max_length=32)
-    cus_nam = models.CharField(max_length=32)
-    mypg_cd = models.IntegerField()
-    cus_id = models.CharField(max_length=32)
-    usr_act = models.CharField(max_length=32)
-
-    class Meta:
-        managed = False
-        db_table = 'usr_info'
-
-
 class UsrOrdInfo(models.Model):
-    usr = models.ForeignKey(UsrInfo, models.DO_NOTHING)
+    usr = models.ForeignKey(AccountsUser, models.DO_NOTHING)
     ord_cd = models.IntegerField()
     ord_amt = models.BigIntegerField()
     ord_dt = models.DateTimeField()
@@ -305,7 +295,7 @@ class UsrOrdInfo(models.Model):
 
 
 class UsrPrfInfo(models.Model):
-    usr = models.ForeignKey(UsrInfo, models.DO_NOTHING)
+    usr = models.ForeignKey(AccountsUser, models.DO_NOTHING)
     ren_dt = models.DateTimeField()
     tot_cus_rtr = models.FloatField()
 
@@ -315,7 +305,7 @@ class UsrPrfInfo(models.Model):
 
 
 class UsrTrnInfo(models.Model):
-    usr = models.ForeignKey(UsrInfo, models.DO_NOTHING)
+    usr = models.ForeignKey(AccountsUser, models.DO_NOTHING)
     ren_dt = models.DateTimeField()
     tot_cus_pri = models.BigIntegerField()
     tot_cus_prf = models.BigIntegerField()

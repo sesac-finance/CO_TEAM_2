@@ -7,7 +7,7 @@ urlpatterns = [
     path('modelact/<int:model_id>', views.ModelAct),  #모델 계좌 연결
     path('modeltrs/<int:model_pk>', views.TradingList), #모델 거래 내역 리스트
     path('openbank/', views.open_banking_auth), #오픈뱅킹
-    path('transaction/', views.transaction_info),
-    path('usertrans/', views.user_trans),
+    path('transaction/<int:user_id>/<int:model_id>', views.trans),
+    #path('usertrans/', views.user_trans),
 
 ]
