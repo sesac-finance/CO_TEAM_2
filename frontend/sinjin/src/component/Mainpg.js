@@ -1,3 +1,4 @@
+
 import mainimg from './mainimg.png'
 
 export default function Mainpg(){
@@ -6,41 +7,6 @@ export default function Mainpg(){
         <div className="mainimg">
             <img src={mainimg} alt="mainimage" style={{width:'100%'}}></img>
         </div>
-        {/* <div className='modeldetail'>
-            <div className='modeldetail_1'>
-                <h3>모델 1</h3>
-                <p>모델 1은 머신러닝 기술을 사용한 모델을 사용한 모델입니다. </p>
-                <a href='model/1' className='modeldetail_1'><button className='btn btn-primary btn-lg'>상세보기</button></a>
-            </div>
-            <div className='modeldetail_box'>
-                <div className='modeldetail_box_1'>
-                    <h3>수익률</h3>
-                    <p>수익률은 전체의</p>
-                    <h2>35%</h2>
-                    <p>입니다.</p>
-                    
-                </div>
-                <div className='modeldetail_box_2'>
-                    <h3>유저수</h3>
-                    <p>이 모델을 사용하고있는 유저수는</p> 
-                    <h2>120만명</h2>
-                    <p>입니다.</p>
-                </div>
-                <div className='modeldetail_box_3'>
-                    <h3>유저들의 평균 수익률</h3>
-                    <p>이 모델을 사용하고있는 유저들의 평균수익률은 </p>
-                    <h2>23%</h2>
-                    <p>입니다.</p>
-                </div>
-                <div className='modeldetail_box_4'>
-                    <h3>유저들의 평균 투자금</h3>
-                    <p>이 모델을 사용하고있는 유저들의 평균투자금은 </p>
-                    <h2>312만원</h2>
-                    <p>입니다.</p>
-                </div>
-                
-            </div>
-        </div> */}
 
     <div className="container px-4 py-5">
         <h2 className="pb-2 border-bottom">신진데사가 만든 모델</h2>
