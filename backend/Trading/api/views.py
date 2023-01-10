@@ -226,6 +226,88 @@ def trans(request, user_id, model_id):
 
         return Response(result)
 
+#출금
+#post형식  -  {"usr_id": 1, "mod_id" : 1, "prc_pri" : 500}
+
+@api_view(['POST'])
+def WithDraw(request):
+    #0. request에서 값 추출
+    user_id = request.data.get('usr_id')
+    mod_id = request.data.get('mod_id')    
+    prc_pri = request.data.get('prc_pri')
+
+    try:
+        #1.입출금 테이블에 출금 기록
+        prc_dt = datetime.now()
+        post_db = TrsCheck( usr_id = user_id, mod_id =mod_id,ord_cd =2 ,prc_cd = 0, ren_dt = prc_dt, prc_pri = prc_pri)
+        post_db.save()
+
+        #2. 입력id의 유저 현재 잔액
+        sql = "select * from usr_trn_info where usr_id={}".format(user_id)
+        obj = UsrTrnInfo.objects.raw(sql)
+
+        result_list = []
+
+        data_list = serializers.serialize("python", obj)
+        for data in data_list:
+            #print(data)
+            fields =data.get('fields')
+            result_list.append(fields['tot_cus_pri'])
+
+        recent_usr_amt = result_list[0]  #DB에서 해당 아이디 해당하는 유저의 잔액 가져옴
+
+        #3. 입력 모델 id의 잔액
+        sql = "select * from mod_act where mod_id={}".format(mod_id)
+        obj = ModAct.objects.raw(sql)
+
+        tot_pri_list = []
+        hold_list = []
+
+        data_list = serializers.serialize("python", obj)
+        for data in data_list:
+            #print(data)
+            fields =data.get('fields')
+            tot_pri_list.append(fields['tot_mod_pri'])
+            hold_list.append(fields['hold_pri'])
+
+        recent_mod_amt = tot_pri_list[0]  #DB에서 해당 아이디 해당하는 모델의 잔액 가져옴
+        recent_hold_amt = hold_list[0]
+
+
+        #유저 자산내역에 원금 빼기
+        post_list = UsrTrnInfo.objects.get(usr_id=user_id)
+        post_list.tot_cus_pri = recent_usr_amt - int(prc_pri) 
+        post_list.save()
+        # for post in post_list:
+        #     post.tot_cus_pri = int(tran_amt) + recent_usr_amt
+        #     post.save()
+        
+        #모델 계좌원금, hold_pri에 입금금액 update
+        post = ModAct.objects.get(mod_id=mod_id)
+        post.tot_mod_pri = recent_mod_amt - int(prc_pri)
+        post.save()
+        post.hold_pri = recent_hold_amt + int(prc_pri) 
+        post.save()
+
+        result = "success"
+
+    except:
+        result = 'fail'
+
+    return Response(result)
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         
 

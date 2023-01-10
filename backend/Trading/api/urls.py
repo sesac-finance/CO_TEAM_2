@@ -10,6 +10,6 @@ urlpatterns = [
     path('modelinfo/<int:model_pk>', views.ModelInfo), #모델 설명
     path('openbank/', views.open_banking_auth), #오픈뱅킹
     path('transaction/<int:user_id>/<int:model_id>', views.trans), #입금
-    #path('usertrans/', views.user_trans),
+    path('withdraw/', views.WithDraw), #출금
 
 ]
