@@ -216,11 +216,7 @@ class ModAct(models.Model):
     tot_mod_prf = models.BigIntegerField()
     tot_mod_inv = models.BigIntegerField()
     tot_mod_rtr = models.FloatField()
-    tot_mod_iem_cd = models.CharField(max_length=100)
-    tot_mod_mon_rtr = models.FloatField()
-    tot_mod_iem_rtr = models.FloatField()
-    tot_mod_iem_per_rtr = models.CharField(max_length=100, blank=True, null=True)
-    tot_mod_iem_qty = models.CharField(max_length=100, blank=True, null=True)
+    tot_mod_iem = models.CharField(max_length=1000)
     hold_pri = models.BigIntegerField(blank=True, null=True)
 
     class Meta:
@@ -307,6 +303,7 @@ class UsrPrfInfo(models.Model):
 
 class UsrTrnInfo(models.Model):
     usr = models.ForeignKey(AccountsUser, models.DO_NOTHING)
+    mod = models.ForeignKey(ModInfo, models.DO_NOTHING)
     ren_dt = models.DateTimeField()
     tot_cus_pri = models.BigIntegerField()
     tot_cus_prf = models.BigIntegerField()

@@ -128,7 +128,7 @@ def open_banking_auth(request):
 
 
 #입금
-@api_view(['GET','POST'])
+@api_view(['GET'])
 def trans(request, user_id, model_id):
     if request.method == 'GET':
         #1. 입력id의 유저 이름 가져오기
