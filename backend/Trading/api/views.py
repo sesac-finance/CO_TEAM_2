@@ -79,7 +79,7 @@ def TradingList(request, model_pk):
 @api_view(['GET'])
 def ModelPrfAct(request,model_pk):
     try:
-        act = get_list_or_404(UsrPrfInfo, usr_id=model_pk)
+        act = get_list_or_404(ModPrfInfo, mod_id=model_pk)
     except ModPrfInfo.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     
