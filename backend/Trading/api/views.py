@@ -1,7 +1,7 @@
 from rest_framework import status
 from rest_framework.response import Response
 from .models import *
-from .serializers import UserActSerializer, ModActSerializer, ModTrsSerializer, UserPrfSerializer, AccountsUserSerializer
+from .serializers import UserActSerializer, ModActSerializer, ModTrsSerializer, UserPrfSerializer, AccountsUserSerializer, ModPrfInfoSerializer
 from django.shortcuts import get_list_or_404, get_object_or_404
 from rest_framework.decorators import api_view
 from django.http import JsonResponse
@@ -12,6 +12,7 @@ from django.http import JsonResponse
 import json
 import requests
 from datetime import datetime
+from django.db import connection
 
 #유저 계좌 조회
 @api_view(['GET'])
@@ -73,6 +74,51 @@ def TradingList(request, model_pk):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+#모델 수익률             
+@api_view(['GET'])
+def ModelPrfAct(request,model_pk):
+    try:
+        act = get_list_or_404(UsrPrfInfo, usr_id=model_pk)
+    except ModPrfInfo.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    
+    # Detail Get
+    if request.method =='GET':
+        serializer = ModPrfInfoSerializer(act, many=True)
+        return Response(serializer.data[-6:], status=status.HTTP_200_OK)
+
+# 모델 설명 페이지
+@api_view(['GET'])
+def ModelInfo(request, model_pk):
+    try:
+        cursor = connection.cursor()
+        query = "select AVG(tot_cus_rtr), count(*), sum(tot_cus_pri) from usr_trn_info group by mod_id"
+        result = cursor.execute(query)
+        data = cursor.fetchall()
+
+        connection.commit()
+        connection.close()
+
+    except:
+        connection.rollback()
+        print("Failed Selecting")
+    
+    if model_pk == 1:
+        avg = data[0][0]
+        user_cnt = data[0][1]
+        user_pri = data[0][2]
+
+    elif model_pk == 2:
+        avg = data[1][0]
+        user_cnt = data[1][1]
+        user_pri = data[1][2]
+
+    context = {'user_avg' : avg, 'user_count': user_cnt, 'user_pri': user_pri}
+
+    return JsonResponse(context, json_dumps_params= {'ensure_ascii': False}, safe=False)
+
+
 
 
 #오픈뱅킹 사용자 인증사이트

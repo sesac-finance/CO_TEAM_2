@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import UsrTrnInfo, ModAct, ModTrs, UsrPrfInfo, AccountsUser
+from .models import UsrTrnInfo, ModAct, ModTrs, UsrPrfInfo, AccountsUser, ModPrfInfo
 
 class UserActSerializer(serializers.ModelSerializer):
 
@@ -28,3 +28,7 @@ class AccountsUserSerializer(serializers.ModelSerializer):
         model = AccountsUser
         fields = ('__all__')
 
+class ModPrfInfoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ModPrfInfo
+        fields = ('__all__')
