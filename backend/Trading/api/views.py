@@ -93,9 +93,13 @@ def ModelPrfAct(request,model_pk):
 def ModelInfo(request, model_pk):
     try:
         cursor = connection.cursor()
-        query = "select AVG(tot_cus_rtr), count(*), sum(tot_cus_pri) from usr_trn_info group by mod_id"
+        query = "select AVG(tot_cus_rtr), count(*), AVG(tot_cus_pri) from usr_trn_info group by mod_id"
         result = cursor.execute(query)
         data = cursor.fetchall()
+
+        query2 = "select AVG(tot_mod_rtr) from mod_prf_info group by mod_id"
+        result2 = cursor.execute(query2)
+        data2 = cursor.fetchall()
 
         connection.commit()
         connection.close()
@@ -108,13 +112,15 @@ def ModelInfo(request, model_pk):
         avg = data[0][0]
         user_cnt = data[0][1]
         user_pri = data[0][2]
+        mod_rtr = data2[0][0]
 
     elif model_pk == 2:
         avg = data[1][0]
         user_cnt = data[1][1]
         user_pri = data[1][2]
+        mod_rtr = data2[1][0]
 
-    context = {'user_avg' : avg, 'user_count': user_cnt, 'user_pri': user_pri}
+    context = {'user_avg' : avg, 'user_count': user_cnt, 'user_pri': user_pri, 'mod_rtr': mod_rtr}
 
     return JsonResponse(context, json_dumps_params= {'ensure_ascii': False}, safe=False)
 
