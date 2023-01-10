@@ -1,5 +1,7 @@
 /* eslint-disable no-restricted-globals */
 
+import axios from "axios";
+
 export default function Endcontext() {
   const handleInClick = () => {
     if (confirm("39939334 \n국민은행  \n으로 입금해주세요!") === true) {

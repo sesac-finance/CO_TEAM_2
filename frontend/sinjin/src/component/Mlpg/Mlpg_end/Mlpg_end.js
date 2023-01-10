@@ -1,10 +1,21 @@
 /* eslint-disable no-restricted-globals */
 
+import axios from "axios";
+
 export default function Endcontext() {
   const handleClick = () => {
     if (confirm("93772048024204로 입금해주세요!") === true) {
       if (confirm("정말 입금 완료하셨습니까?") === true) {
-        alert("이용해주셔서 감사합니다!❤️");
+        axios.get('http://localhost:4000/api/transaction/12/1')
+        .then((res)=>{
+          if(res.data==='success'){
+            alert('입금처리완료!!')
+            console.log(res.data)
+          }else{
+            console.log(res.data)
+          }
+          alert("이용해주셔서 감사합니다!❤️");
+        })
       } else {
         alert("다음에 또 만나요~");
       }
