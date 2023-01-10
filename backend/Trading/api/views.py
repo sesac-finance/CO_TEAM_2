@@ -11,6 +11,7 @@ from django.db.models import Max
 from django.http import JsonResponse
 import json
 import requests
+from datetime import datetime
 
 #유저 계좌 조회
 @api_view(['GET'])
@@ -117,18 +118,21 @@ def trans(request, user_id, model_id):
         sql = "select * from mod_act where mod_id={}".format(model_id)
         obj = ModAct.objects.raw(sql)
 
-        result_list = []
+        tot_pri_list = []
+        hold_list = []
 
         data_list = serializers.serialize("python", obj)
         for data in data_list:
             #print(data)
             fields =data.get('fields')
-            result_list.append(fields['tot_mod_pri'])
+            tot_pri_list.append(fields['tot_mod_pri'])
+            hold_list.append(fields['hold_pri'])
 
-        recent_mod_amt = result_list[0]  #DB에서 해당 아이디 해당하는 모델의 잔액 가져옴
+        recent_mod_amt = tot_pri_list[0]  #DB에서 해당 아이디 해당하는 모델의 잔액 가져옴
+        recent_hold_amt = hold_list[0]
 
         #4. 계좌 거래내역 조회해서 입금자명, 입금 금액 가져오기
-        URL = 'https://testapi.openbanking.or.kr/v2.0/account/transaction_list/fin_num?bank_tran_id=M202300020U111111144&fintech_use_num=120230002088951080465425&inquiry_type=A&inquiry_base=D&from_date=20180101&from_time=000000&to_date=20200101&to_time=000000&sort_order=D&tran_dtime=20230104161500'
+        URL = 'https://testapi.openbanking.or.kr/v2.0/account/transaction_list/fin_num?bank_tran_id=M202300020U111111112&fintech_use_num=120230002088951080465425&inquiry_type=A&inquiry_base=D&from_date=20180101&from_time=000000&to_date=20200101&to_time=000000&sort_order=D&tran_dtime=20230104161500'
         headers = {
                 'Authorization' : 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiIxMTAxMDE4MzI5Iiwic2NvcGUiOlsiaW5xdWlyeSIsImxvZ2luIiwidHJhbnNmZXIiXSwiaXNzIjoiaHR0cHM6Ly93d3cub3BlbmJhbmtpbmcub3Iua3IiLCJleHAiOjE2ODA1ODcyMjUsImp0aSI6ImUzM2MzYmI3LTdiM2YtNGM3NS1hYTVkLWIwZGY1YzUxMzRjMSJ9.T-nSeNGMAa1gy8H_7CX9ym0gML2ODXrAscc6jEZIWNY' }
         response = requests.get(URL, headers=headers) #url 받아오는 변수
@@ -140,23 +144,35 @@ def trans(request, user_id, model_id):
         tran_amt=recent_trans["tran_amt"]
         #print(type(tran_amt))
 
+        #입금 요청 기록 db 업데이트
+        prc_dt = datetime.now()
+        post_db = TrsCheck( usr_id = user_id, mod_id =model_id,ord_cd =1 ,prc_cd = 0, ren_dt = prc_dt, prc_pri = int(tran_amt))
+        post_db.save()
 
         #5. 거래내역과 해당 유저의 이름이 일치하는지 확인
         if name == res_name:
             result = 'success'
             
             #유저 계좌 원금에 입금금액 update
-            post_list = UsrTrnInfo.objects.filter(usr_id=user_id)
-            for post in post_list:
-                post.tot_cus_pri = int(tran_amt) + recent_usr_amt
-                post.save()
+            post_list = UsrTrnInfo.objects.get(usr_id=user_id)
+            post_list.tot_cus_pri = int(tran_amt) + recent_usr_amt
+            post_list.save()
+            # for post in post_list:
+            #     post.tot_cus_pri = int(tran_amt) + recent_usr_amt
+            #     post.save()
             
-            #모델 계좌원금에 입금금액 update
-            post_list = ModAct.objects.filter(mod_id=model_id)
-            for post in post_list:
-                post.tot_mod_pri = int(tran_amt) + recent_mod_amt
-                post.save()
-
+            #모델 계좌원금, hold_pri에 입금금액 update
+            post = ModAct.objects.get(mod_id=model_id)
+            post.tot_mod_pri = int(tran_amt) + recent_mod_amt
+            post.save()
+            post.hold_pri = recent_hold_amt - int(tran_amt) 
+            post.save()
+            
+            
+            #입금 처리결과 업데이트
+            check_obj = TrsCheck.objects.get(pk=post_db.pk)
+            check_obj.prc_cd = 1
+            check_obj.save()
 
 
         else: 

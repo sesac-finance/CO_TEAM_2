@@ -221,6 +221,7 @@ class ModAct(models.Model):
     tot_mod_iem_rtr = models.FloatField()
     tot_mod_iem_per_rtr = models.CharField(max_length=100, blank=True, null=True)
     tot_mod_iem_qty = models.CharField(max_length=100, blank=True, null=True)
+    hold_pri = models.BigIntegerField(blank=True, null=True)
 
     class Meta:
         managed = False
@@ -234,6 +235,16 @@ class ModInfo(models.Model):
     class Meta:
         managed = False
         db_table = 'mod_info'
+
+
+class ModPrfInfo(models.Model):
+    mod = models.ForeignKey(ModInfo, models.DO_NOTHING)
+    ren_dt = models.DateTimeField()
+    tot_mod_rtr = models.FloatField()
+
+    class Meta:
+        managed = False
+        db_table = 'mod_prf_info'
 
 
 class ModSign(models.Model):
@@ -273,25 +284,15 @@ class RtDiv(models.Model):
 
 class TrsCheck(models.Model):
     usr = models.ForeignKey(AccountsUser, models.DO_NOTHING)
-    btn_clk_cd = models.IntegerField()
-    btn_clk_dt = models.DateTimeField()
-    usr_ord_cd = models.IntegerField()
-    usr_ord_dt = models.DateTimeField()
+    mod = models.ForeignKey(ModInfo, models.DO_NOTHING)
+    ord_cd = models.IntegerField()
+    prc_cd = models.IntegerField()
+    ren_dt = models.DateTimeField()
+    prc_pri = models.BigIntegerField()
 
     class Meta:
         managed = False
         db_table = 'trs_check'
-
-
-class UsrOrdInfo(models.Model):
-    usr = models.ForeignKey(AccountsUser, models.DO_NOTHING)
-    ord_cd = models.IntegerField()
-    ord_amt = models.BigIntegerField()
-    ord_dt = models.DateTimeField()
-
-    class Meta:
-        managed = False
-        db_table = 'usr_ord_info'
 
 
 class UsrPrfInfo(models.Model):
