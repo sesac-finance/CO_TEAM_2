@@ -11,9 +11,9 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = get_user_model()
-        fields = ('username', 'password', 'bank', "name")
+        fields = ('username', 'password', 'bank', "bank_account","name")
 
-#{"username": "sim", "password" : "1111", "passwordConfirmation" : "1111","bank":"124567", "name" : "심혜지"}
+#{"username": "sim", "password" : "1111", "passwordConfirmation" : "1111","bank" : "오픈뱅킹","bank_account":"124567", "name" : "심혜지"}
 
 
 

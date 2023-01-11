@@ -258,12 +258,14 @@ def trans(request, model_id):
         return Response(result)
 
 #출금
-#post형식  -  {"usr_id": 1, "mod_id" : 1, "prc_pri" : 500}
+#post형식  -  {"mod_id" : 1, "prc_pri" : 500}
 
 @api_view(['POST'])
+@authentication_classes([JWTAuthentication])
+@permission_classes([IsAuthenticated])
 def WithDraw(request):
     #0. request에서 값 추출
-    user_id = request.data.get('usr_id')
+    user_id = request.user.id
     mod_id = request.data.get('mod_id')    
     prc_pri = request.data.get('prc_pri')
 
