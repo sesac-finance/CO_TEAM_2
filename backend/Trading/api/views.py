@@ -145,11 +145,11 @@ def open_banking_auth(request):
 
 #입금
 @api_view(['GET'])
-# @authentication_classes([JWTAuthentication])
-# @permission_classes([IsAuthenticated])
+@authentication_classes([JWTAuthentication])
+@permission_classes([IsAuthenticated])
 def trans(request, model_id):
-    # user_id = request.user.id
-    user_id = 11
+    user_id = request.user.id
+    #user_id = 11
     if request.method == 'GET':
 
         #1. 입력id의 유저 이름 가져오기
