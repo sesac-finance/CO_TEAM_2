@@ -130,7 +130,7 @@ def ModelInfo(request, model_pk):
         user_pri = data[1][2]
         mod_rtr = data2[1][0]
 
-    context = {'user_avg' : avg, 'user_count': user_cnt, 'user_pri': str(int(user_pri))[:-4], 'mod_rtr': float(round(mod_rtr,2))}
+    context = {'user_avg' : float(round(avg,2)), 'user_count': user_cnt, 'user_pri': str(int(user_pri))[:-4], 'mod_rtr': float(round(mod_rtr,2))}
 
     return JsonResponse(context, json_dumps_params= {'ensure_ascii': False}, safe=False)
 
