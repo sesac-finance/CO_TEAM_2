@@ -6,7 +6,11 @@ export default function Endcontext() {
   const handleClick = () => {
     if (confirm("93772048024204로 입금해주세요!") === true) {
       if (confirm("정말 입금 완료하셨습니까?") === true) {
-        axios.get('http://localhost:4000/api/transaction/12/1')
+        axios({
+          method:'get',
+          url:'http://localhost:4000/api/transaction/1',
+          headers: { Authorization: "Bearer " + localStorage.getItem("jwt") },
+        })
         .then((res)=>{
           if(res.data==='success'){
             alert('입금처리완료!!')

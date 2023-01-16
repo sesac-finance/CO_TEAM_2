@@ -1,4 +1,20 @@
-export default function Context() {
+import { useEffect, useState } from "react";
+
+export default function Context({ data }) {
+  const [modelaveprf, setModelaveprf] = useState();
+  const [modeltotaluser, setModeltotaluser] = useState();
+  const [modeluserave, setModeluserave] = useState();
+  const [modelavemoney, setModelavemoney] = useState();
+
+  useEffect(() => {
+    if (data) {
+      setModelaveprf(data.mod_rtr);
+      setModeltotaluser(data.user_count);
+      setModeluserave(data.user_avg);
+      setModelavemoney(data.user_pri);
+    } else {
+    }
+  });
   return (
     <div className="row row-cols-1 row-cols-md-2 align-items-md-center g-5 py-5">
       <div className="col d-flex flex-column align-items-start gap-2">
@@ -17,7 +33,7 @@ export default function Context() {
             <p className="text-muted">
               모델의 평균 수익률은 <br />
               <strong style={{ color: "black", fontSize: "24px" }}>
-                30%
+                {modelaveprf}%
               </strong>{" "}
               입니다.
             </p>
@@ -29,7 +45,7 @@ export default function Context() {
             <p className="text-muted">
               이 모델을 사용하고 있는 유저의 수는 <br />
               <strong style={{ color: "black", fontSize: "24px" }}>
-                200만명
+                {modeltotaluser}명
               </strong>{" "}
               입니다.
             </p>
@@ -44,7 +60,7 @@ export default function Context() {
               이 모델을 사용하여 함께 투자하고 계신 유저분들의 평균 수익률은{" "}
               <br />
               <strong style={{ color: "black", fontSize: "24px" }}>
-                23%
+                {modeluserave}%
               </strong>{" "}
               입니다.
             </p>
@@ -58,7 +74,7 @@ export default function Context() {
             <p className="text-muted">
               이 모델을 사용하는 유저들의 평균 투자금액은 <br />
               <strong style={{ color: "black", fontSize: "24px" }}>
-                329만원
+                {modelavemoney}원
               </strong>{" "}
               입니다.
             </p>
