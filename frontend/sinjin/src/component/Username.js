@@ -7,7 +7,7 @@ export default function Username(){
     }
     axios({
     method:'get',
-    url: `http://localhost:4000/accounts/user/`,
+    url: `http://3.35.49.211/accounts/user/`,
     headers: {Authorization: `Bearer ${jwtToken}`},
   })
   .then(res => {

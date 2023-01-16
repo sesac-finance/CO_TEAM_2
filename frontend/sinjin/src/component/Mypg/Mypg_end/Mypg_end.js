@@ -14,7 +14,7 @@ export default function Endcontext() {
         if (confirm("정말 입금 완료하셨습니까?") === true) {
           axios({
             method:'get',
-            url:'http://localhost:4000/api/transaction/'+mod_id,
+            url:'http://3.35.49.211/api/transaction/'+mod_id,
             headers: { Authorization: "Bearer " + localStorage.getItem("jwt") },
           })
           .then((res)=>{
@@ -43,7 +43,7 @@ export default function Endcontext() {
         if (mod_id === true) {
           console.log(mod_id)
           axios({
-            url: 'http://localhost:4000/api/withdraw/',
+            url: 'http://3.35.49.211/api/withdraw/',
             method: 'post',
             headers: { Authorization: "Bearer " + localStorage.getItem("jwt") },
             data: {

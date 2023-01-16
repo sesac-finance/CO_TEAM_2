@@ -16,7 +16,7 @@ export default function Mypg() {
     if (!userid) {
       axios({
         method: "get",
-        url: "http://localhost:4000/accounts/user/",
+        url: "http://3.35.49.211/accounts/user/",
         headers: { Authorization: "Bearer " + localStorage.getItem("jwt") },
       }).then((res) => {
         setUserid(res.data.id);
@@ -28,7 +28,7 @@ export default function Mypg() {
     if (!usertotal && userid !== undefined) {
       axios({
         method: "get",
-        url: "http://localhost:4000/api/useract/",
+        url: "http://3.35.49.211/api/useract/",
         headers: { Authorization: "Bearer " + localStorage.getItem("jwt") },
       }).then((res) => {
         setUserstart(res.data.tot_cus_pri);
@@ -43,7 +43,7 @@ export default function Mypg() {
     if (!userdata && userid !== undefined) {
       axios({
         method: "get",
-        url: "http://localhost:4000/api/userprf/",
+        url: "http://3.35.49.211/api/userprf/",
         headers: { Authorization: "Bearer " + localStorage.getItem("jwt") },
       }).then((res) => {
         setUserdata(res.data);

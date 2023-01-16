@@ -23,7 +23,7 @@ export default function Signup(){
         e.preventDefault();
 
         try{
-            await axios.post('http://localhost:4000/accounts/signup/',inputs)
+            await axios.post('http://3.35.49.211/accounts/signup/',inputs)
             .then(res =>{
                 alert('회원가입 성공!!')
                 navigate('/login')

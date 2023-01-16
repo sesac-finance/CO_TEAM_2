@@ -19,7 +19,7 @@ export default function Dlpg(){
 
 
     useEffect(() => {
-        if (!dlstartmoney) axios.get('http://localhost:4000/api/modelact/2')
+        if (!dlstartmoney) axios.get('http://3.35.49.211/api/modelact/2')
         .then((res) => {
             setDlstartmoney(res.data.tot_mod_pri)
             setDlrise(res.data.tot_mod_rtr)
@@ -29,7 +29,7 @@ export default function Dlpg(){
         })
     })
     useEffect(()=>{
-        if (!dlgraph) axios.get('http://localhost:4000/api/modelprf/2')
+        if (!dlgraph) axios.get('http://3.35.49.211/api/modelprf/2')
         .then((res)=>{
             setDlgraph(res.data)
             console.log('그래프', res.data)
@@ -37,14 +37,14 @@ export default function Dlpg(){
          //모델수익률
     })
     useEffect(() => {
-        if (!dllist) { axios.get('http://localhost:4000/api/modeltrs/2')
+        if (!dllist) { axios.get('http://3.35.49.211/api/modeltrs/2')
         .then((res) => {
             setDllist(res.data)
             console.log(res.data)
         })}
     })
     useEffect(()=>{
-        if (!dlcont) { axios.get('http://localhost:4000/api/modelinfo/2')
+        if (!dlcont) { axios.get('http://3.35.49.211/api/modelinfo/2')
         .then((res) => {
             setDlcont(res.data)
             console.log('부부',res.data)

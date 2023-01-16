@@ -17,7 +17,7 @@ export default function Login(){
             e.preventDefault();
 
             try{
-                await axios.post('http://localhost:4000/accounts/api/token/',inputs)
+                await axios.post('http://3.35.49.211/accounts/api/token/',inputs)
                 .then(res => {
                           localStorage.setItem('jwt', res.data.access)
                           localStorage.setItem('jwt-refresh', res.data.refresh)

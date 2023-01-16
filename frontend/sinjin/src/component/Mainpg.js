@@ -5,7 +5,7 @@ import axios from 'axios'
 export default function Mainpg(){
   const [mlcont, setMlcont] = useState()
   useEffect(()=>{
-    if (!mlcont) { axios.get('http://localhost:4000/api/modelinfo/1')
+    if (!mlcont) { axios.get('http://3.35.49.211/api/modelinfo/1')
     .then((res) => {
         setMlcont(res.data)
         console.log('부부',res.data)
@@ -27,7 +27,7 @@ export default function Mainpg(){
   })
   const [dlcont, setDlcont] = useState()
   useEffect(()=>{
-    if (!dlcont) { axios.get('http://localhost:4000/api/modelinfo/2')
+    if (!dlcont) { axios.get('http://3.35.49.211/api/modelinfo/2')
     .then((res) => {
         setDlcont(res.data)
         console.log('부부',res.data)

@@ -8,7 +8,7 @@ export default function Endcontext() {
       if (confirm("정말 입금 완료하셨습니까?") === true) {
         axios({
           method:'get',
-          url:'http://localhost:4000/api/transaction/1',
+          url:'http://3.35.49.211/api/transaction/1',
           headers: { Authorization: "Bearer " + localStorage.getItem("jwt") },
         })
         .then((res)=>{
