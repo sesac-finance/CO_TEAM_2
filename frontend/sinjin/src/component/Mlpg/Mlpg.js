@@ -10,6 +10,7 @@ import axios from 'axios'
 
 export default function Mlpg(){
     const [mlstartmoney, setMlstartmoney] = useState()
+    const [mliem, setMliem] = useState([{code:404044 , percent:1}])
     const [mlrise, setMlrise] = useState()
     const [mlrisemoney, setMlrisemoney] = useState()
     const [mltotalmoney , setMltotalmoney] = useState()
@@ -25,6 +26,7 @@ export default function Mlpg(){
             setMlrise(res.data.tot_mod_rtr)
             setMlrisemoney(res.data.tot_mod_prf)
             setMltotalmoney(res.data.tot_mod_inv)
+            setMliem(res.data.tot_mod_iem)
             // 투자비중은 샘플데이터 들어가면 하자
         })
     })
@@ -60,7 +62,7 @@ export default function Mlpg(){
             <Mlpgwidget amount={mltotalmoney} diff={mlrise} type={'totalmoney'}/>
         </div>
             <div className='charts'>
-                <Featured/>
+                <Featured data={mliem}/>
                 <Chart data={mlgraph} modPrf={mlrise} title="Last 6 Months (Revenue)" aspect={2 / 1}/>
             </div>
             <List rows={mllist} />

@@ -14,7 +14,6 @@ const List = ({rows}) => {
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
-          <TableCell className="tableCell">ID</TableCell>
             <TableCell className="tableCell">기업코드</TableCell>
             <TableCell className="tableCell">Date</TableCell>
             <TableCell className="tableCell">Amount</TableCell>
@@ -26,7 +25,6 @@ const List = ({rows}) => {
         {rows && Object.keys(rows).length >= 2
             ? rows.map((row) => (
                 <TableRow key={row.id}>
-                  <TableCell className="tableCell">{row.id}</TableCell>
                   <TableCell className="tableCell">
                     <div className="cellWrapper">{row.iem_cd}</div>
                   </TableCell>

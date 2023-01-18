@@ -74,7 +74,7 @@ export default function Context({ data }) {
             <p className="text-muted">
               이 모델을 사용하는 유저들의 평균 투자금액은 <br />
               <strong style={{ color: "black", fontSize: "24px" }}>
-                {modelavemoney}원
+                {modelavemoney}만원
               </strong>{" "}
               입니다.
             </p>

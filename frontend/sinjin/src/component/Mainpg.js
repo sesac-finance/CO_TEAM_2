@@ -95,7 +95,7 @@ export default function Mainpg(){
                         
                     </div>
                     <h4 className="fw-semibold mb-0">유저들의<br></br> 평균 투자금액</h4>
-                    <p className="text-muted">이 모델을 사용하는 유저들의 평균 투자금액은 <br /><strong style={{color:'black', fontSize:'24px'}}>{mlavemoney}원</strong> 입니다.</p>
+                    <p className="text-muted">이 모델을 사용하는 유저들의 평균 투자금액은 <br /><strong style={{color:'black', fontSize:'24px'}}>{mlavemoney}만원</strong> 입니다.</p>
                 </div>
             </div>
         </div>
@@ -139,7 +139,7 @@ export default function Mainpg(){
               
             </div>
             <h4 className="fw-semibold mb-0">유저들의<br></br> 평균 투자금액</h4>
-            <p className="text-muted">이 모델을 사용하는 유저들의 평균 투자금액은 <br /><strong style={{color:'black', fontSize:'24px'}}>{dlavemoney}원</strong> 입니다.</p>
+            <p className="text-muted">이 모델을 사용하는 유저들의 평균 투자금액은 <br /><strong style={{color:'black', fontSize:'24px'}}>{dlavemoney}만원</strong> 입니다.</p>
           </div>
         </div>
       </div>
