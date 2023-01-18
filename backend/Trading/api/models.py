@@ -36,6 +36,7 @@ class AccountsUser(models.Model):
     date_joined = models.DateTimeField()
     bank = models.CharField(max_length=32, blank=True, null=True)
     name = models.CharField(max_length=32, blank=True, null=True)
+    bank_account = models.CharField(max_length=32, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -118,9 +119,9 @@ class CapAct(models.Model):
 
 
 class CompanyInfo(models.Model):
-    code = models.CharField(primary_key=True, max_length=100)
-    company = models.CharField(max_length=100)
-    last_update = models.DateTimeField()
+    code = models.CharField(primary_key=True, max_length=20)
+    company = models.CharField(max_length=40, blank=True, null=True)
+    last_update = models.DateField(blank=True, null=True)
 
     class Meta:
         managed = False
@@ -129,7 +130,7 @@ class CompanyInfo(models.Model):
 
 class DailyPrice(models.Model):
     code = models.CharField(primary_key=True, max_length=20)
-    date = models.DateField()
+    date = models.DateTimeField()
     open = models.BigIntegerField(blank=True, null=True)
     high = models.BigIntegerField(blank=True, null=True)
     low = models.BigIntegerField(blank=True, null=True)
@@ -197,6 +198,24 @@ class DjangoSite(models.Model):
         db_table = 'django_site'
 
 
+class ExchageRate(models.Model):
+    date = models.DateField()
+    rate = models.CharField(max_length=100)
+
+    class Meta:
+        managed = False
+        db_table = 'exchage_rate'
+
+
+class InterestRate(models.Model):
+    date = models.DateTimeField()
+    rate = models.CharField(max_length=100)
+
+    class Meta:
+        managed = False
+        db_table = 'interest_rate'
+
+
 class KnoxAuthtoken(models.Model):
     digest = models.CharField(primary_key=True, max_length=128)
     created = models.DateTimeField()
@@ -217,7 +236,6 @@ class ModAct(models.Model):
     tot_mod_inv = models.BigIntegerField()
     tot_mod_rtr = models.FloatField()
     tot_mod_iem = models.CharField(max_length=1000)
-    hold_pri = models.BigIntegerField(blank=True, null=True)
 
     class Meta:
         managed = False
@@ -257,7 +275,7 @@ class ModSign(models.Model):
 class ModTrs(models.Model):
     mod = models.ForeignKey(ModInfo, models.DO_NOTHING)
     ord_dt = models.DateTimeField()
-    iem_cd = models.IntegerField()
+    iem_cd = models.CharField(max_length=10)
     sby_dit_cd = models.IntegerField()
     cns_qty = models.IntegerField()
     orr_pr = models.BigIntegerField()
@@ -265,17 +283,6 @@ class ModTrs(models.Model):
     class Meta:
         managed = False
         db_table = 'mod_trs'
-
-
-class RtDiv(models.Model):
-    usr = models.ForeignKey(AccountsUser, models.DO_NOTHING)
-    mod = models.ForeignKey(ModInfo, models.DO_NOTHING)
-    usr_rtr = models.FloatField()
-    ren_dt = models.DateTimeField()
-
-    class Meta:
-        managed = False
-        db_table = 'rt_div'
 
 
 class TrsCheck(models.Model):

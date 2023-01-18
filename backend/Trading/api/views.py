@@ -203,17 +203,16 @@ def trans(request, model_id):
         obj = ModAct.objects.raw(sql)
 
         tot_pri_list = []
-        hold_list = []
+
 
         data_list = serializers.serialize("python", obj)
         for data in data_list:
             #print(data)
             fields =data.get('fields')
             tot_pri_list.append(fields['tot_mod_pri'])
-            hold_list.append(fields['hold_pri'])
+
 
         recent_mod_amt = tot_pri_list[0]  #DB에서 해당 아이디 해당하는 모델의 잔액 가져옴
-        recent_hold_amt = hold_list[0]
 
         #tran_id 불러오기
         with open('api/tran_id.csv', 'r') as f:
@@ -260,12 +259,11 @@ def trans(request, model_id):
             post_list.tot_cus_rtr = (post_list.tot_cus_prf / post_list.tot_cus_pri) * 100
             post_list.save()
             
-            #모델 계좌원금, hold_pri에 입금금액 update
+            #모델 계좌원금에 입금금액 update
             post = ModAct.objects.get(mod_id=model_id)
             post.tot_mod_pri = int(tran_amt) + recent_mod_amt
             post.tot_mod_inv = post.tot_mod_pri + post.tot_mod_prf
             post.tot_mod_rtr = (post.tot_mod_prf/ post.tot_mod_pri) * 100
-            post.hold_pri = recent_hold_amt - int(tran_amt) 
             post.save()
                         
             #입금 처리결과 업데이트
@@ -320,25 +318,7 @@ def WithDraw(request):
         recent_usr_amt = result_list[0]  #DB에서 해당 아이디 해당하는 유저의 잔액 가져옴
         recent_usr_prf = rec_prf_list[0]  #유저 현재 수익
         recent_usr_inv = rec_inv_list[0]  #유저 평가자산  
-
-
-        #3. 입력 모델 id의 잔액
-        sql = "select * from mod_act where mod_id={}".format(mod_id)
-        obj = ModAct.objects.raw(sql)
-
-        # tot_pri_list = []
-        hold_list = []
-
-        data_list = serializers.serialize("python", obj)
-        for data in data_list:
-            #print(data)
-            fields =data.get('fields')
-            # tot_pri_list.append(fields['tot_mod_pri'])
-            hold_list.append(fields['hold_pri'])
-
-        # recent_mod_amt = tot_pri_list[0]  #DB에서 해당 아이디 해당하는 모델의 잔액 가져옴
-        recent_hold_amt = hold_list[0]
-        
+  
 
         #유저 자산내역에 원금과 수익 일정 비율 빼기
         dep_rate = (prc_pri / recent_usr_inv)   #출금해야할 비율
@@ -354,11 +334,6 @@ def WithDraw(request):
         post_list.tot_cus_rtr = (post_list.tot_cus_prf / post_list.tot_cus_pri) * 100
         post_list.save()
         
-        #모델 hold_pri에 입금금액 update
-        post = ModAct.objects.get(mod_id=mod_id)
-        post.hold_pri = recent_hold_amt + int(prc_pri) 
-        post.save()
-
         result = "success"
 
     except:
