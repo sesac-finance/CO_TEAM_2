@@ -10,6 +10,7 @@ import axios from 'axios'
 
 export default function Mlpg(){
     const [mlstartmoney, setMlstartmoney] = useState()
+    const [mliemcheck, setMliemcheck] = useState()
     const [mliem, setMliem] = useState([{code:404044 , percent:1}])
     const [mlrise, setMlrise] = useState()
     const [mlrisemoney, setMlrisemoney] = useState()
@@ -26,9 +27,16 @@ export default function Mlpg(){
             setMlrise(res.data.tot_mod_rtr)
             setMlrisemoney(res.data.tot_mod_prf)
             setMltotalmoney(res.data.tot_mod_inv)
-            setMliem(res.data.tot_mod_iem)
             // 투자비중은 샘플데이터 들어가면 하자
         })
+    })
+    useEffect(() => {
+        if (!mliemcheck){axios.get('http://3.35.49.211/api/moditem/1')
+        .then((res) => {
+            setMliem(res.data)
+            setMliemcheck(res.data)
+            console.log('ime : ',res.data)
+        })}
     })
     useEffect(()=>{
         if (!mlgraph) axios.get('http://3.35.49.211/api/modelprf/1')

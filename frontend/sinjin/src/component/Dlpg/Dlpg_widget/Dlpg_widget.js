@@ -45,10 +45,19 @@ export default function Mlpgwidget({type, amount , diff}){
           <span className='link'>{data.link}</span>
         </div>
         <div className='right'>
+        {diff > 0 
+          ?(
           <div className='percentage positive'>
             <KeyboardArrowUpIcon />
             {diff} %
           </div>
+          ):(
+            <div className='percentage negative'>
+            <KeyboardArrowUpIcon />
+            {diff} %
+          </div>
+          )
+        }
           {data.icon}
         </div>
       </div>
