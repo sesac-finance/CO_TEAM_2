@@ -1,7 +1,7 @@
 from rest_framework import status
 from rest_framework.response import Response
 from .models import *
-from .serializers import UserActSerializer, ModActSerializer, ModTrsSerializer, UserPrfSerializer, AccountsUserSerializer, ModPrfInfoSerializer
+from .serializers import UserActSerializer, ModActSerializer, ModTrsSerializer, UserPrfSerializer, AccountsUserSerializer, ModPrfInfoSerializer, ModItemSerializer
 from django.shortcuts import get_list_or_404, get_object_or_404
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from django.http import JsonResponse
@@ -66,6 +66,25 @@ def ModelAct(request, model_id):
     if request.method =='GET':
         serializer = ModActSerializer(act)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+import json
+#기업 비중 조회
+@api_view(['GET'])
+def ModIemAct(request, model_id):
+    try:
+        cursor = connection.cursor()
+        query = "select tot_mod_iem from mod_act where mod_id = {}".format(model_id)
+        result = cursor.execute(query)
+        data = cursor.fetchall()
+
+    except:
+        connection.rollback()
+        print("Failed Selecting")
+
+    datas = json.loads(data[0][0].replace("'",'"'))
+   
+    return JsonResponse(datas, json_dumps_params= {'ensure_ascii': False}, safe=False)
+
 
 
 #모델 거래 내역 리스트

@@ -90,27 +90,27 @@ WSGI_APPLICATION = 'Trading.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'tradingdb2',  # DB name
-        'USER': 'root',  # DB account
-        'PASSWORD': '1111',  # DB account's password
-        'HOST': 'localhost',  # DB address(IP)
-        'PORT': '3306',  # DB port(normally 3306)
-    }
-}
-
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'Trading',  # DB name
-#         'USER': 'Team2',  # DB account
-#         'PASSWORD': '0120',  # DB account's password
-#         'HOST': '3.35.49.211',  # DB address(IP)
+#         'NAME': 'tradingdb2',  # DB name
+#         'USER': 'root',  # DB account
+#         'PASSWORD': '1111',  # DB account's password
+#         'HOST': 'localhost',  # DB address(IP)
 #         'PORT': '3306',  # DB port(normally 3306)
 #     }
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'Trading',  # DB name
+        'USER': 'Team2',  # DB account
+        'PASSWORD': '0120',  # DB account's password
+        'HOST': '3.35.49.211',  # DB address(IP)
+        'PORT': '3306',  # DB port(normally 3306)
+    }
+}
 
 
 # Password validation

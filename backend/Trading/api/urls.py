@@ -5,6 +5,7 @@ urlpatterns = [
     path('useract/', views.UserAct ),  # 유저 계좌 연결
     path('userprf/', views.UserPrfAct ),  # 유저 수익률 연결
     path('modelact/<int:model_id>', views.ModelAct),  #모델 계좌 연결
+    path('moditem/<int:model_id>', views.ModIemAct),  #모델 계좌 연결
     path('modeltrs/<int:model_pk>', views.TradingList), #모델 거래 내역 연결
     path('modelprf/<int:model_pk>', views.ModelPrfAct), #모델 수익률 연결
     path('modelinfo/<int:model_pk>', views.ModelInfo), #모델 설명

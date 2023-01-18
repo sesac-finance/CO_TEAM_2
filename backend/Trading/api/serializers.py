@@ -32,3 +32,8 @@ class ModPrfInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = ModPrfInfo
         fields = ('__all__')
+
+class ModItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ModAct
+        fields = ('tot_mod_iem')
