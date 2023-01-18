@@ -23,7 +23,6 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 @permission_classes([IsAuthenticated])
 def UserAct(request):
     user_id = request.user.id
-    print(user_id)
     try:
         act = get_object_or_404(UsrTrnInfo, usr_id=user_id)
     except UsrTrnInfo.DoesNotExist:

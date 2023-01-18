@@ -9,16 +9,7 @@ import {
 } from "recharts";
 import "./chart.scss";
 
-const data = [
-  { name: "January", Total: 1200 },
-  { name: "February", Total: 2100 },
-  { name: "March", Total: 800 },
-  { name: "April", Total: 1600 },
-  { name: "May", Total: 900 },
-  { name: "June", Total: 1700 },
-];
-
-const Chart = ({ aspect, title }) => {
+const Chart = ({ aspect, title, data }) => {
   return (
     <div className="chart">
     <div className="title">{title}</div>
@@ -41,11 +32,11 @@ const Chart = ({ aspect, title }) => {
             </linearGradient>
           </defs>
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="name" />
+        <XAxis dataKey="ren_dt" />
         <CartesianGrid strokeDasharray="3 3" className="chartGrid" />
         <YAxis />
         <Tooltip />
-        <Area type="monotone" dataKey="Total" stroke="#589FFF" fill="url(#total)" fillOpacity={1} />
+        <Area type="monotone"  dataKey="tot_mod_rtr"  stroke="#589FFF" fill="url(#total)" fillOpacity={1} />
       </AreaChart>
     </div>
   );

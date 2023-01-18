@@ -177,7 +177,7 @@ SIMPLE_JWT = {
 }
 SITE_ID = 1
 
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost:8080',
-]
-#CORS_ORIGIN_ALLOW_ALL=True
+# CORS_ALLOWED_ORIGINS = [
+#     'http://localhost:8080',
+# ]
+CORS_ORIGIN_ALLOW_ALL=True

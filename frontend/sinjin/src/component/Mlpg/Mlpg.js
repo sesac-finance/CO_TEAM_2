@@ -10,6 +10,7 @@ import axios from 'axios'
 
 export default function Mlpg(){
     const [mlstartmoney, setMlstartmoney] = useState()
+    const [mliem, setMliem] = useState([{code:404044 , percent:1}])
     const [mlrise, setMlrise] = useState()
     const [mlrisemoney, setMlrisemoney] = useState()
     const [mltotalmoney , setMltotalmoney] = useState()
@@ -19,17 +20,18 @@ export default function Mlpg(){
 
 
     useEffect(() => {
-        if (!mlstartmoney) axios.get('http://localhost:4000/api/modelact/1')
+        if (!mlstartmoney) axios.get('http://3.35.49.211/api/modelact/1')
         .then((res) => {
             setMlstartmoney(res.data.tot_mod_pri)
             setMlrise(res.data.tot_mod_rtr)
             setMlrisemoney(res.data.tot_mod_prf)
             setMltotalmoney(res.data.tot_mod_inv)
+            setMliem(res.data.tot_mod_iem)
             // 투자비중은 샘플데이터 들어가면 하자
         })
     })
     useEffect(()=>{
-        if (!mlgraph) axios.get('http://localhost:4000/api/modelprf/1')
+        if (!mlgraph) axios.get('http://3.35.49.211/api/modelprf/1')
         .then((res)=>{
             setMlgraph(res.data)
             console.log('그래프', res.data)
@@ -37,14 +39,14 @@ export default function Mlpg(){
          //모델수익률
     })
     useEffect(() => {
-        if (!mllist) { axios.get('http://localhost:4000/api/modeltrs/1')
+        if (!mllist) { axios.get('http://3.35.49.211/api/modeltrs/1')
         .then((res) => {
             setMllist(res.data)
             console.log(res.data)
         })}
     })
     useEffect(()=>{
-        if (!mlcont) { axios.get('http://localhost:4000/api/modelinfo/1')
+        if (!mlcont) { axios.get('http://3.35.49.211/api/modelinfo/1')
         .then((res) => {
             setMlcont(res.data)
             console.log('부부',res.data)
@@ -60,7 +62,7 @@ export default function Mlpg(){
             <Mlpgwidget amount={mltotalmoney} diff={mlrise} type={'totalmoney'}/>
         </div>
             <div className='charts'>
-                <Featured/>
+                <Featured data={mliem}/>
                 <Chart data={mlgraph} modPrf={mlrise} title="Last 6 Months (Revenue)" aspect={2 / 1}/>
             </div>
             <List rows={mllist} />

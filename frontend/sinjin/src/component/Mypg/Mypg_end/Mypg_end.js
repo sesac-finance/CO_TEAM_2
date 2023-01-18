@@ -1,30 +1,63 @@
 /* eslint-disable no-restricted-globals */
 
 import axios from "axios";
+import { useState } from "react";
 
 export default function Endcontext() {
+  // const [prc_pri, setPrc_pri] = useState()
+  // const [mod_id, setMod_id] = useState()
+
   const handleInClick = () => {
-    if (confirm("39939334 \n국민은행  \n으로 입금해주세요!") === true) {
-      if (confirm("정말 입금 완료하셨습니까?") === true) {
-        alert("이용해주셔서 감사합니다!❤️");
+      const mod_id = prompt('입금 희망하는 모델을 적어주세요! ML 모델이라면 1을 DL 모델이라면 2를 입력해주세요!')
+      console.log(mod_id)
+      if (confirm("93772048024204로 입금해주세요!") === true) {
+        if (confirm("정말 입금 완료하셨습니까?") === true) {
+          axios({
+            method:'get',
+            url:'http://3.35.49.211/api/transaction/'+mod_id,
+            headers: { Authorization: "Bearer " + localStorage.getItem("jwt") },
+          })
+          .then((res)=>{
+            if(res.data==='success'){
+              alert('입금처리완료!!')
+              console.log(res.data)
+            }else{
+              console.log(res.data)
+            }
+            alert("이용해주셔서 감사합니다!❤️");
+          })
+        } else {
+          alert("다음에 또 만나요~");
+        }
       } else {
         alert("다음에 또 만나요~");
       }
-    } else {
-      alert("다음에 또 만나요~");
-    }
-  };
+    };
   const handleOutClick = () => {
     if (confirm("출금을 하시겠습니까?") === true) {
-      if (prompt("출금하시고싶으신 금액을 적어주세요. ex) 2000000")) {
-        if (prompt("받으실 계좌의 은행정보를 입력해주세요")) {
-          if (prompt("출금을 원하시는 금액을 입력해주세요!")) {
-            alert(
-              "출금까지 5일이 소요됩니다!\n문의를 원하시면 \n010-8615-0745로 전화주세요"
-            );
-          } else {
-            alert("다음에 또 만나요~");
-          }
+      var prc_pri = prompt('출금하시고싶으신 금액을 적어주세요.  ex) 2000000')
+      if (prc_pri === true) {
+        
+        console.log(prc_pri)
+        var mod_id =prompt("출금 희망하는 모델을 적어주세요! ML 모델이라면 1을 DL 모델이라면 2를 입력해주세요!")
+        if (mod_id === true) {
+          console.log(mod_id)
+          axios({
+            url: 'http://3.35.49.211/api/withdraw/',
+            method: 'post',
+            headers: { Authorization: "Bearer " + localStorage.getItem("jwt") },
+            data: {
+              mod_id:mod_id,
+              prc_pri:prc_pri
+            }
+          })
+          console.log(mod_id, prc_pri)
+          .then(function a(response) { 
+            console.log(response) 
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
         } else {
           alert("다음에 또 만나요~~");
         }

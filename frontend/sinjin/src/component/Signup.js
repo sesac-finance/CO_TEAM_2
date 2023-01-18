@@ -10,7 +10,8 @@ export default function Signup(){
             bank:"",
             password:"",
             passwordConfirmation:"",
-            name:""
+            name:"",
+            bank_account:""
         });
     const [err, setErr] = useState(null);
     
@@ -22,7 +23,7 @@ export default function Signup(){
         e.preventDefault();
 
         try{
-            await axios.post('http://localhost:4000/accounts/signup/',inputs)
+            await axios.post('http://3.35.49.211/accounts/signup/',inputs)
             .then(res =>{
                 alert('회원가입 성공!!')
                 navigate('/login')
@@ -52,9 +53,12 @@ export default function Signup(){
           <input style={{width: '350px',margin: '20px'}} type="password" className="form-control" name="passwordConfirmation" onChange={handleChange} id="exampleInputPassword2" placeholder="비밀번호 확인" />
         </div>
         <div className="form-group">
-          <input style={{width: '350px',margin: '20px'}} type="account" className="form-control" name="bank" onChange={handleChange} id="exampleInputAccount" placeholder="계좌번호" />
+          <input style={{width: '350px',margin: '20px'}} type="account" className="form-control" name="bank" onChange={handleChange} id="exampleInputAccount" placeholder="출금 받으실 은행명" />
         </div>
         {/* {err && err} */}
+        <div className="form-group">
+          <input style={{width: '350px',margin: '20px'}} type="account" className="form-control" name="bank_account" onChange={handleChange} id="exampleInputAccount" placeholder="계좌번호" />
+        </div>
         <div className="login-button">
             <button type="login" onClick={handleClick} className="btn btn-primary" style={{width: '350px',margin: '20px'}}>회원가입</button>
             </div>

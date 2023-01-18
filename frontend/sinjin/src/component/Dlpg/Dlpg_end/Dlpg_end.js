@@ -1,17 +1,32 @@
 /* eslint-disable no-restricted-globals */
+import axios from "axios";
+
 
 export default function Endcontext() {
-    const handleClick = () => {
-      if (confirm("39939334 \n국민은행  \n으로 입금해주세요!") === true) {
-        if (confirm("정말 입금 완료하셨습니까?") === true) {
+  const handleClick = () => {
+    if (confirm("93772048024204로 입금해주세요!") === true) {
+      if (confirm("정말 입금 완료하셨습니까?") === true) {
+        axios({
+          method:'get',
+          url:'http://3.35.49.211/api/transaction/2',
+          headers: { Authorization: "Bearer " + localStorage.getItem("jwt") },
+        })
+        .then((res)=>{
+          if(res.data==='success'){
+            alert('입금처리완료!!')
+            console.log(res.data)
+          }else{
+            console.log(res.data)
+          }
           alert("이용해주셔서 감사합니다!❤️");
-        } else {
-          alert("다음에 또 만나요~");
-        }
+        })
       } else {
         alert("다음에 또 만나요~");
       }
-    };
+    } else {
+      alert("다음에 또 만나요~");
+    }
+  };
     return (
       <div className="px-4 py-5 my-5 text-center">
       <h1 className="display-5 fw-bold">함께 하시겠습니까?</h1>
