@@ -5,14 +5,14 @@ import React, { useCallback, useState } from "react";
 import "react-circular-progressbar/dist/styles.css";
 import { PieChart, Pie, Sector,Cell } from "recharts";
 
-const Featured = () => {
-  const data = [
-    { name: "Group A", value: 400 },
-    { name: "Group B", value: 300 },
-    { name: "Group C", value: 300 },
-    { name: "Group D", value: 200 },
-    {name: 'Group E', value:239},
-  ];
+const Featured = ({data}) => {
+  // const data = [
+  //   { name: "Group A", value: 400 },
+  //   { name: "Group B", value: 300 },
+  //   { name: "Group C", value: 300 },
+  //   { name: "Group D", value: 200 },
+  //   {name: 'Group E', value:239},
+  // ];
   const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', 'pink'];
 
   const renderActiveShape = (props) => {
@@ -43,7 +43,7 @@ const Featured = () => {
     return (
       <g>
         <text x={cx} y={cy} dy={8} textAnchor="middle" fill={fill}>
-          {payload.name}
+          {payload.code}
         </text>
         <Sector
           cx={cx}
@@ -112,7 +112,7 @@ const Featured = () => {
               innerRadius={60}
               outerRadius={80}
               fill="#8884d8"
-              dataKey="value"
+              dataKey="percent"
               onMouseEnter={onPieEnter}
             >
             {data.map((entry, index) => (

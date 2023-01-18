@@ -18,7 +18,6 @@ export default function Navbar(props){
       
             <ul className="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
               <li><a href="/" className="nav-link px-2 link-dark">Home</a></li>
-              <li><a href="/service" className="nav-link px-2 link-dark">Service</a></li>
               <li><a href="/model/ml" className="nav-link px-2 link-dark">ML model</a></li>
               <li><a href="/model/dl" className="nav-link px-2 link-dark">DL model</a></li>
             </ul>

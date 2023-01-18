@@ -11,6 +11,8 @@ import axios from 'axios'
 export default function Dlpg(){
   const [dlstartmoney, setDlstartmoney] = useState()
     const [dlrise, setDlrise] = useState()
+    const [dliemcheck, setDliemcheck] = useState()
+    const [dliem, setDliem] = useState([{code:404044 , percent:1}])
     const [dlrisemoney, setDlrisemoney] = useState()
     const [dltotalmoney , setDltotalmoney] = useState()
     const [dllist , setDllist] =useState()
@@ -27,6 +29,14 @@ export default function Dlpg(){
             setDltotalmoney(res.data.tot_mod_inv)
             // 투자비중은 샘플데이터 들어가면 하자
         })
+    })
+    useEffect(() => {
+        if (!dliemcheck){axios.get('http://3.35.49.211/api/moditem/2')
+        .then((res) => {
+            setDliem(res.data)
+            setDliemcheck(res.data)
+            console.log('ime : ',res.data)
+        })}
     })
     useEffect(()=>{
         if (!dlgraph) axios.get('http://3.35.49.211/api/modelprf/2')
@@ -60,7 +70,7 @@ export default function Dlpg(){
             <Dlpgwidget amount={dltotalmoney} diff={dlrise} type={'totalmoney'}/>
         </div>
             <div className='charts'>
-                <Featured/>
+                <Featured data={dliem}/>
                 <Chart data={dlgraph} modPrf={dlrise}  title="Last 6 Months (Revenue)" aspect={2 / 1}/>
             </div>
           <List rows={dllist}></List>

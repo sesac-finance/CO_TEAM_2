@@ -18,7 +18,7 @@ export default function Mlpgwidget({type , amount , diff}){
      break;
      case 'rise':
       data={
-        title: '수익률',
+        title: '수익금',
         ismoney: false,
         link: 'View net earnings',
         icon: (<PercentIcon className='icon'/>),
@@ -45,10 +45,19 @@ export default function Mlpgwidget({type , amount , diff}){
           <span className='link'>{data.link}</span>
         </div>
         <div className='right'>
+          {diff > 0 
+          ?(
           <div className='percentage positive'>
             <KeyboardArrowUpIcon />
             {diff} %
           </div>
+          ):(
+            <div className='percentage negative'>
+            <KeyboardArrowUpIcon />
+            {diff} %
+          </div>
+          )
+        }
           {data.icon}
         </div>
       </div>
