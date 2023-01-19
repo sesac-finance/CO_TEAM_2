@@ -3,6 +3,7 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import AccessibilityNewIcon from "@mui/icons-material/AccessibilityNew";
 import PercentIcon from "@mui/icons-material/Percent";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 export default function Mypgwidget({ type, amount , diff}) {
   let data;
@@ -46,11 +47,19 @@ export default function Mypgwidget({ type, amount , diff}) {
           </span>
         </div>
         <div className="right">
-          <div className="percentage positive">
+        {diff > 0 
+          ?(
+          <div className='percentage positive'>
             <KeyboardArrowUpIcon />
             {diff} %
           </div>
-          {data.icon}
+          ):(
+            <div className='percentage negative'>
+            <KeyboardArrowDownIcon />
+            {diff} %
+          </div>
+          )
+        }
         </div>
       </div>
     </div>

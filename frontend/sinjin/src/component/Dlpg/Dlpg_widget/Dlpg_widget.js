@@ -1,10 +1,12 @@
 import './dlpg_widget.scss';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import AccessibilityNewIcon from '@mui/icons-material/AccessibilityNew';
 import PercentIcon from '@mui/icons-material/Percent';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 
-export default function Mlpgwidget({type, amount , diff}){
+
+export default function Dlpgwidget({type, amount , diff}){
   let data
   switch (type) {
     case 'startmoney':
@@ -52,7 +54,7 @@ export default function Mlpgwidget({type, amount , diff}){
           </div>
           ):(
             <div className='percentage negative'>
-            <KeyboardArrowUpIcon />
+            <KeyboardArrowDownIcon />
             {diff} %
           </div>
           )

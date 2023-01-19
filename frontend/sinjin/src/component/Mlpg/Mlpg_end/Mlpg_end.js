@@ -5,7 +5,7 @@ import axios from "axios";
 export default function Endcontext() {
   const handleClick = () => {
     if (confirm("93772048024204로 입금해주세요!") === true) {
-      if (confirm("정말 입금 완료하셨습니까?") === true) {
+      if (confirm("입금을 완료하셨다면 확인버튼을 눌러주세요!?") === true) {
         axios({
           method:'get',
           url:'http://3.35.49.211/api/transaction/1',

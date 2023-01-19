@@ -14,7 +14,7 @@ export default function Navbar(props){
     return(
       <div className="container">
           <header className="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
-            <a href='/' className='homelogo'><h2>🐳신진데사</h2></a>
+            <a href='/' className='homelogo'><h2>🐳FINSAT</h2></a>
       
             <ul className="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
               <li><a href="/" className="nav-link px-2 link-dark">Home</a></li>
