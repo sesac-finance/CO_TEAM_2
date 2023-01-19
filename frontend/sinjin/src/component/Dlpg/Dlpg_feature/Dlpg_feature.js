@@ -43,7 +43,7 @@ const Featured = ({data}) => {
     return (
       <g>
         <text x={cx} y={cy} dy={8} textAnchor="middle" fill={fill}>
-          {payload.code}
+          종목코드:{payload.code}
         </text>
         <Sector
           cx={cx}
@@ -72,17 +72,11 @@ const Featured = ({data}) => {
         <text
           x={ex + (cos >= 0 ? 1 : -1) * 12}
           y={ey}
+          dy={5}
           textAnchor={textAnchor}
           fill="#333"
-        >{`PV ${value}`}</text>
-        <text
-          x={ex + (cos >= 0 ? 1 : -1) * 12}
-          y={ey}
-          dy={18}
-          textAnchor={textAnchor}
-          fill="#999"
         >
-          {`(Rate ${(percent * 100).toFixed(2)}%)`}
+          {`비중 (${(percent * 100).toFixed(2)}%)`}
         </text>
       </g>
     );

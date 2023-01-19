@@ -15,7 +15,7 @@ const Chart = ({ aspect,data, title }) => {
   return (
     <div className="chart">
     <div className="title">{title}</div>
-
+    <ResponsiveContainer width="100%" height={400}>
       <AreaChart
         width={670}
         height={400}
@@ -40,6 +40,7 @@ const Chart = ({ aspect,data, title }) => {
         <Tooltip />
         <Area type="monotone" dataKey="tot_mod_rtr" stroke="#589FFF" fill="url(#total)" fillOpacity={1} />
       </AreaChart>
+    </ResponsiveContainer>
     </div>
   );
 };

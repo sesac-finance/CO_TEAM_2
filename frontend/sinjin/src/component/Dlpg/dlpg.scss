@@ -1,8 +1,10 @@
 .widgets{
     display: flex;
+    @media(max-width:720px) {flex-direction:column; }
 }
 .charts{
     display: flex;
+    @media(max-width:1200px) {flex-direction:column; }
     padding: 20px;
     gap: 20px;
 }

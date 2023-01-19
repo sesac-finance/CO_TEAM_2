@@ -64,7 +64,7 @@ const List = ({ rows }) => {
   // sby_dit_cd: 1;
   return (
     <TableContainer component={Paper} className="table">
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+      <Table sx={{ minWidth: 500 }} aria-label="simple table">
         <TableHead>
           <TableRow>
             <TableCell className="tableCell">기업코드</TableCell>

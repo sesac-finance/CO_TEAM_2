@@ -246,7 +246,7 @@ def trans(request, model_id):
         post_db.save()
 
         write = str(int(tran_id) + 1)
-        with open(r'api\tran_id.csv', 'w') as f:
+        with open(r'api/tran_id.csv', 'w') as f:
             f.write(write)
 
         #5. 거래내역과 해당 유저의 이름이 일치하는지 확인
@@ -288,8 +288,10 @@ def WithDraw(request):
     #0. request에서 값 추출
     user_id = request.user.id
     # user_id = 10
-    mod_id = request.data.get('mod_id')    
-    prc_pri = request.data.get('prc_pri')
+    mod_id = int(request.data.get('mod_id'))   
+    print(mod_id) 
+    prc_pri = int(request.data.get('prc_pri'))
+    print(prc_pri)
 
     try:
 

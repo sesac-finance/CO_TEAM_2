@@ -5,6 +5,7 @@ import {
   XAxis,
   YAxis,
   CartesianGrid,
+  ResponsiveContainer,
   Tooltip,
 } from "recharts";
 import "./chart.scss";
@@ -13,7 +14,7 @@ const Chart = ({ aspect, title, data }) => {
   return (
     <div className="chart">
     <div className="title">{title}</div>
-
+    <ResponsiveContainer width="100%" height={400}>
       <AreaChart
         width={670}
         height={400}
@@ -38,6 +39,7 @@ const Chart = ({ aspect, title, data }) => {
         <Tooltip />
         <Area type="monotone"  dataKey="tot_mod_rtr"  stroke="#589FFF" fill="url(#total)" fillOpacity={1} />
       </AreaChart>
+    </ResponsiveContainer>
     </div>
   );
 };

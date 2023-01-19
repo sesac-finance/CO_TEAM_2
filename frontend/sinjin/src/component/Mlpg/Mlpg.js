@@ -29,7 +29,7 @@ export default function Mlpg(){
             setMltotalmoney(res.data.tot_mod_inv)
             // 투자비중은 샘플데이터 들어가면 하자
         })
-    })
+    },[])
     useEffect(() => {
         if (!mliemcheck){axios.get('http://3.35.49.211/api/moditem/1')
         .then((res) => {
@@ -37,7 +37,7 @@ export default function Mlpg(){
             setMliemcheck(res.data)
             console.log('ime : ',res.data)
         })}
-    })
+    },[])
     useEffect(()=>{
         if (!mlgraph) axios.get('http://3.35.49.211/api/modelprf/1')
         .then((res)=>{
@@ -45,21 +45,21 @@ export default function Mlpg(){
             console.log('그래프', res.data)
         })
          //모델수익률
-    })
+    },[])
     useEffect(() => {
         if (!mllist) { axios.get('http://3.35.49.211/api/modeltrs/1')
         .then((res) => {
             setMllist(res.data)
             console.log(res.data)
         })}
-    })
+    },[])
     useEffect(()=>{
         if (!mlcont) { axios.get('http://3.35.49.211/api/modelinfo/1')
         .then((res) => {
             setMlcont(res.data)
             console.log('부부',res.data)
         })}
-    })
+    },[])
     return(
     <div>
     <div className='container'>

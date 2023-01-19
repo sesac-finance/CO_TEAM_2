@@ -42,7 +42,6 @@ export default function Mlpgwidget({type , amount , diff}){
         <div className='left'>
           <span className='title'>{data.title}</span>
           <span className='counter'>{data.ismoney && '₩'}{amount}</span>
-          <span className='link'>{data.link}</span>
         </div>
         <div className='right'>
           {diff > 0 

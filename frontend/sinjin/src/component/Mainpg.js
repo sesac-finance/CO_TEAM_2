@@ -10,7 +10,7 @@ export default function Mainpg(){
         setMlcont(res.data)
         console.log('부부',res.data)
     })}
-})
+},[])
   const [mlaveprf,setMlaveprf]= useState()
   const [mltotaluser,setMltotaluser] = useState()
   const [mluserave, setMluserave] = useState()
@@ -32,7 +32,7 @@ export default function Mainpg(){
         setDlcont(res.data)
         console.log('부부',res.data)
     })}
-})
+},[])
   const [dlaveprf, setDlaveprf] = useState();
   const [dltotaluser, setDltotaluser] = useState();
   const [dluserave, setDluserave] = useState();
